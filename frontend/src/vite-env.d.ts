@@ -12,10 +12,10 @@ export type Event = {
     id: string;
   };
   occurred_at: string;
-  metadata: {
-    redirect: string;
-    description: string;
-    x_request_id: string;
+  metadata?: {
+    redirect?: string;
+    description?: string;
+    x_request_id?: string;
   };
   target: {
     name: string;

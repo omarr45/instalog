@@ -4,7 +4,7 @@ import DataTable from './components/DataTable';
 
 function App() {
   return (
-    <main className='max-w-4xl mx-auto'>
+    <main className="mx-auto max-w-4xl">
       <DataTable />
     </main>
   );
