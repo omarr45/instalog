@@ -20,11 +20,11 @@ export default function TableRow(props: TableRowProps) {
     <>
       {isOpen ? (
         <tr>
-          <td className="relative scale-105" colSpan={3}>
+          <td className="relative scale-105 text-xs" colSpan={3}>
             <button
               onSubmit={() => setIsOpen(!isOpen)}
               onClick={() => setIsOpen(!isOpen)}
-              className="absolute right-3 top-5 h-5 w-5 cursor-pointer text-gray-400"
+              className="absolute right-3 top-5 h-5 w-5 cursor-pointer text-gray-400 transition-colors duration-150 hover:text-gray-600"
             >
               <svg
                 fill="none"
@@ -46,7 +46,7 @@ export default function TableRow(props: TableRowProps) {
                 <h4 className="mb-2 font-semibold uppercase text-gray-400">
                   Actor
                 </h4>
-                <div className="grid grid-cols-[90px,auto] grid-rows-3">
+                <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Name</p>
                   <p>{event.actor.name}</p>
                   <p className="text-gray-500">Email</p>
@@ -59,7 +59,7 @@ export default function TableRow(props: TableRowProps) {
                 <h4 className="mb-2 font-semibold uppercase text-gray-400">
                   Action
                 </h4>
-                <div className="grid grid-cols-[90px,auto] grid-rows-3">
+                <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Name</p>
                   <p title={event.action.name}>
                     {event.action.name?.length > 18
@@ -76,7 +76,7 @@ export default function TableRow(props: TableRowProps) {
                 <h4 className="mb-2 font-semibold uppercase text-gray-400">
                   Date
                 </h4>
-                <div className="grid grid-cols-[90px,auto] grid-rows-3">
+                <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Readable</p>
                   <p>{formatDate(event.occurred_at)}</p>
                 </div>
@@ -85,7 +85,7 @@ export default function TableRow(props: TableRowProps) {
                 <h4 className="mb-2 font-semibold uppercase text-gray-400">
                   Metadata
                 </h4>
-                <div className="grid grid-cols-[90px,auto] grid-rows-3">
+                <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Redirect</p>
                   <p>{event.metadata?.redirect}</p>
                   <p className="text-gray-500">X Req ID</p>
@@ -104,7 +104,7 @@ export default function TableRow(props: TableRowProps) {
                 <h4 className="mb-2 font-semibold uppercase text-gray-400">
                   Target
                 </h4>
-                <div className="grid grid-cols-[90px,auto] grid-rows-3">
+                <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Name</p>
                   <p>{event.target.name}</p>
                   <p className="text-gray-500">Email</p>
@@ -117,7 +117,7 @@ export default function TableRow(props: TableRowProps) {
           </td>
         </tr>
       ) : (
-        <tr className="grid w-full grid-cols-3 transition duration-300 ease-in-out hover:bg-gray-50">
+        <tr className="grid w-full grid-cols-3 transition duration-150 ease-in-out hover:bg-gray-50">
           <td className="flex items-center gap-3 whitespace-nowrap px-6 py-4">
             <div className="tems-center flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-violet-500 text-xs font-semibold text-white">
               {event.actor.name[0]}
@@ -129,10 +129,9 @@ export default function TableRow(props: TableRowProps) {
             {formatDate(event.occurred_at)}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="h-4 w-4 cursor-pointer text-gray-400"
+              className="h-4 w-4 cursor-pointer text-gray-400 hover:text-gray-600"
             >
               <svg
-                tabIndex={0}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.5}

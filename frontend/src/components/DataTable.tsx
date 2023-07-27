@@ -115,7 +115,7 @@ const events: Event[] = [
 export default function DataTable() {
   return (
     <div className="my-8 rounded-xl">
-      <div className="w-full bg-gray-100 p-4 pb-0">
+      <div className="w-full rounded-t-xl bg-gray-100 p-4 pb-0">
         <input
           type="text"
           className="w-full rounded-lg border border-gray-200 bg-transparent p-2 text-sm focus:border-gray-400 focus:outline-none active:border-gray-400"
@@ -144,7 +144,7 @@ export default function DataTable() {
       </table>
       <button
         onClick={() => alert('Hi')}
-        className="w-full bg-gray-100 py-4 text-sm font-semibold uppercase text-gray-600 transition duration-300 ease-in-out hover:bg-gray-200 focus:bg-gray-200 focus:outline-none"
+        className="w-full rounded-b-xl bg-gray-100 py-4 text-sm font-semibold uppercase text-gray-600 transition duration-300 ease-in-out hover:bg-gray-200 focus:bg-gray-200 focus:outline-none"
       >
         Load more
       </button>
