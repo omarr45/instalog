@@ -17,14 +17,28 @@ type Event = {
 };
 
 export const listEvents = async (queryParams: any = {}): Promise<Event[]> => {
-  const { filterBy, filterValue, page } = queryParams;
-  return await db.event.findMany({
-    where: {
-      [filterBy]: filterValue,
-    },
-    take: 3,
-    skip: page ? (parseInt(page) - 1) * 3 : 0,
-  });
+  const { filterBy, filterValue, page, q } = queryParams;
+  if (q)
+    return await db.event.findMany({
+      where: {
+        [filterBy]: filterValue,
+        OR: [
+          { actor_name: { contains: q } },
+          { action_name: { contains: q } },
+          { target_name: { contains: q } },
+        ],
+      },
+      take: 3,
+      skip: page ? (parseInt(page) - 1) * 3 : 0,
+    });
+  else
+    return await db.event.findMany({
+      where: {
+        [filterBy]: filterValue,
+      },
+      take: 3,
+      skip: page ? (parseInt(page) - 1) * 3 : 0,
+    });
 };
 
 export const getEvent = async (id: string): Promise<Event | null> => {
