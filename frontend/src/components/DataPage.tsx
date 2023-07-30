@@ -20,9 +20,10 @@ export default function DataPage({
           <LoadingRow />
         ) : (
           <>
-            {events.map((event: Event) => {
-              return <TableRow key={event.id} event={event} />;
-            })}
+            {events &&
+              events?.map((event: Event) => {
+                return <TableRow key={event.id} event={event} />;
+              })}
           </>
         )}
       </tbody>

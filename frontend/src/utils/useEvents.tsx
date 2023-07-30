@@ -2,7 +2,6 @@ import useSWR from 'swr';
 
 export default function useEvents(index: number, queryParams: string = '') {
   const fetcher = (url: string, queryParams: string = '') => {
-    console.log(`${url}${queryParams}`);
     return fetch(`${url}${queryParams}`).then((res) => res.json());
   };
 

@@ -23,7 +23,7 @@ export const listEvents = async (queryParams: any = {}): Promise<Event[]> => {
   if (q)
     return await db.event.findMany({
       where: {
-        [filterBy]: { contains: filterValue, mode: 'insensitive' },
+        [filterBy]: filterValue,
         OR: [
           { actor_name: { contains: q, mode: 'insensitive' } },
           { action_name: { contains: q, mode: 'insensitive' } },
@@ -38,7 +38,7 @@ export const listEvents = async (queryParams: any = {}): Promise<Event[]> => {
   else
     return await db.event.findMany({
       where: {
-        [filterBy]: { contains: filterValue, mode: 'insensitive' },
+        [filterBy]: filterValue,
       },
       take: 3,
       skip: page ? (parseInt(page) - 1) * 3 : 0,
