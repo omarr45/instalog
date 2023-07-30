@@ -1,14 +1,14 @@
 import { TableRowProps } from '../vite-env';
 import { useState } from 'react';
 
-const formatDate = (date: string) => {
-  const dateObj = new Date(date);
-  const month = dateObj.toLocaleString('default', { month: 'short' });
-  const day = dateObj.getDate();
-  const hour = dateObj.getHours();
-  const minute = dateObj.getMinutes();
-  const ampm = hour >= 12 ? 'PM' : 'AM';
-  return `${month} ${day}, ${hour > 12 ? hour - 12 : hour}:${minute} ${ampm}`;
+const formatDate = (dateObj: Date) => {
+  return new Date(dateObj).toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
 };
 
 export default function TableRow(props: TableRowProps) {
@@ -48,11 +48,11 @@ export default function TableRow(props: TableRowProps) {
                 </h4>
                 <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Name</p>
-                  <p>{event.actor.name}</p>
+                  <p className="truncate">{event.actor_name}</p>
                   <p className="text-gray-500">Email</p>
-                  <p>{event.actor.email}</p>
+                  <p className="truncate">{event.actor_email}</p>
                   <p className="text-gray-500">ID</p>
-                  <p>{event.actor.id}</p>
+                  <p className="truncate">{event.actor_id}</p>
                 </div>
               </div>
               <div className="px-6">
@@ -61,15 +61,13 @@ export default function TableRow(props: TableRowProps) {
                 </h4>
                 <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Name</p>
-                  <p title={event.action.name}>
-                    {event.action.name?.length > 18
-                      ? event.action.name?.substring(0, 18) + '...'
-                      : event.action.name}
+                  <p className="truncate" title={event.action_name}>
+                    {event.action_name}
                   </p>
                   <p className="text-gray-500">Object</p>
-                  <p>{event.action.object}</p>
+                  <p className="truncate">{event.action_object}</p>
                   <p className="text-gray-500">ID</p>
-                  <p>{event.action.id}</p>
+                  <p className="truncate">{event.action_id}</p>
                 </div>
               </div>
               <div className="px-6">
@@ -78,7 +76,7 @@ export default function TableRow(props: TableRowProps) {
                 </h4>
                 <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Readable</p>
-                  <p>{formatDate(event.occurred_at)}</p>
+                  <p className="truncate">{formatDate(event.occurred_at)}</p>
                 </div>
               </div>
               <div className="px-6">
@@ -87,16 +85,12 @@ export default function TableRow(props: TableRowProps) {
                 </h4>
                 <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Redirect</p>
-                  <p>{event.metadata?.redirect}</p>
+                  <p className="truncate">{event.metadata?.redirect}</p>
                   <p className="text-gray-500">X Req ID</p>
-                  <p>{event.metadata?.x_request_id}</p>
+                  <p className="truncate">{event.metadata?.x_request_id}</p>
                   <p className="text-gray-500">Description</p>
-                  <p title={event.metadata?.description}>
-                    {event.metadata?.description
-                      ? event.metadata?.description?.length > 18
-                        ? event.metadata?.description?.substring(0, 18) + '...'
-                        : event.metadata?.description
-                      : 'No description'}
+                  <p className="truncate" title={event.metadata?.description}>
+                    {event.metadata?.description}
                   </p>
                 </div>
               </div>
@@ -106,11 +100,24 @@ export default function TableRow(props: TableRowProps) {
                 </h4>
                 <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1">
                   <p className="text-gray-500">Name</p>
-                  <p>{event.target.name}</p>
+                  <p className="truncate">{event.target_name}</p>
                   <p className="text-gray-500">Email</p>
-                  <p>{event.target.email}</p>
+                  <p className="truncate">{event.target_email}</p>
                   <p className="text-gray-500">ID</p>
-                  <p>{event.target.id}</p>
+                  <p className="truncate">{event.target_id}</p>
+                </div>
+              </div>
+              <div className="px-6">
+                <h4 className="mb-2 font-semibold uppercase text-gray-400">
+                  Event Details
+                </h4>
+                <div className="grid grid-cols-[5rem,auto] grid-rows-3 gap-1 truncate">
+                  <p className="text-gray-500">Event ID</p>
+                  <p className="truncate">{event.id}</p>
+                  <p className="text-gray-500">Group</p>
+                  <p className="truncate">{event.group}</p>
+                  <p className="text-gray-500">Object</p>
+                  <p className="truncate">{event.object}</p>
                 </div>
               </div>
             </div>
@@ -120,11 +127,11 @@ export default function TableRow(props: TableRowProps) {
         <tr className="grid w-full grid-cols-3 transition duration-150 ease-in-out hover:bg-gray-50">
           <td className="flex items-center gap-3 whitespace-nowrap px-6 py-4">
             <div className="tems-center flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-violet-500 text-xs font-semibold text-white">
-              {event.actor.name[0]}
+              {event.actor_name[0]}
             </div>
-            {event.actor.email}
+            {event.actor_email}
           </td>
-          <td className="whitespace-nowrap px-6 py-4">{event.action.name}</td>
+          <td className="whitespace-nowrap px-6 py-4">{event.action_name}</td>
           <td className="flex items-center justify-between whitespace-nowrap px-6 py-4">
             {formatDate(event.occurred_at)}
             <button
