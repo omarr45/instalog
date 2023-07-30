@@ -25,3 +25,5 @@ app.listen(PORT, () => {
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to InstaLog!' });
 });
+
+export default app;
