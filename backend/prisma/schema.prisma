@@ -15,12 +15,14 @@ model Event {
   object    String
   actor_id    String
   actor_name    String
+  actor_email String
   group       String
   action_id   String
   action_object   String
   action_name   String
   target_id   String
   target_name String
+  target_email String
   location    String
   occurred_at DateTime @default(now()) 
   metadata    Json

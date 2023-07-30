@@ -5,12 +5,14 @@ type Event = {
   object: string;
   actor_id: string;
   actor_name: string;
+  actor_email: string;
   group: string;
   action_id: string;
   action_object: string;
   action_name: string;
   target_id: string;
   target_name: string;
+  target_email: string;
   location: string;
   occurred_at: Date;
   metadata: any;
