@@ -1,4 +1,4 @@
-import Page from './DataPage';
+import DataPage from './DataPage';
 import { useState } from 'react';
 
 /*
@@ -109,17 +109,24 @@ const events: Event[] = [
 */
 
 export default function DataTable() {
+  const [search, setSearch] = useState('');
   const [cnt, setCnt] = useState(1);
+  const [queryParams, setQueryParams] = useState('');
 
   const dataPages = [];
   for (let i = 1; i <= cnt; i++) {
-    dataPages.push(<Page index={i} key={i} />);
+    dataPages.push(<DataPage index={i} queryParams={queryParams} key={i} />);
   }
 
   return (
     <div className="my-8 rounded-xl">
       <div className="w-full rounded-t-xl bg-gray-100 p-4 pb-0">
         <input
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setQueryParams(`&q=${e.target.value}`);
+          }}
           type="text"
           className="w-full rounded-lg border border-gray-200 bg-transparent p-2 text-sm focus:outline-double focus:outline-2 focus:outline-gray-400 active:border-gray-400"
           placeholder="Search name, email, or action ..."

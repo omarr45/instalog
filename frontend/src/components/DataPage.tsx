@@ -3,8 +3,14 @@ import LoadingRow from './LoadingRow';
 import TableRow from './TableRow';
 import useEvents from '../utils/useEvents';
 
-export default function Page({ index }: { index: number }) {
-  const { events, error, isLoading } = useEvents(index);
+export default function DataPage({
+  index,
+  queryParams,
+}: {
+  index: number;
+  queryParams: string;
+}) {
+  const { events, error, isLoading } = useEvents(index, queryParams);
 
   return (
     <>
