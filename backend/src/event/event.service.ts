@@ -25,9 +25,11 @@ export const listEvents = async (queryParams: any = {}): Promise<Event[]> => {
       where: {
         [filterBy]: filterValue,
         OR: [
-          { actor_name: { contains: q } },
-          { action_name: { contains: q } },
-          { target_name: { contains: q } },
+          { actor_name: { contains: q, mode: 'insensitive' } },
+          { action_name: { contains: q, mode: 'insensitive' } },
+          { target_name: { contains: q, mode: 'insensitive' } },
+          { actor_email: { contains: q, mode: 'insensitive' } },
+          { target_email: { contains: q, mode: 'insensitive' } },
         ],
       },
       take: 3,
