@@ -123,12 +123,25 @@ export default function DataTable() {
   }
 
   const handleExport = () => {
-    console.log('hi');
+    // get any item from localstorage that starts with 'event_', map it to an array of objects, and download it as a json file
+    const events = Object.keys(localStorage)
+      .filter((key) => key.startsWith('event_'))
+      .map((key) => JSON.parse(localStorage.getItem(key)!));
+    const dataStr =
+      'data:text/json;charset=utf-8,' +
+      encodeURIComponent(JSON.stringify(events));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute('href', dataStr);
+    downloadAnchorNode.setAttribute('download', 'events.json');
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
   };
 
   const handleFilter = (e) => {
     e.preventDefault();
-    const filter: string = e.target.text;
+    const tag = e.target as HTMLFormElement;
+    const filter: string = tag.text;
 
     switch (filter) {
       case 'Actor ID':
@@ -158,6 +171,10 @@ export default function DataTable() {
       setFilterValue('');
       setQueryParams(`&q=${search}`);
     }
+    // get any item from localstorage that starts with 'event_' and delete it
+    Object.keys(localStorage)
+      .filter((key) => key.startsWith('event_'))
+      .forEach((key) => localStorage.removeItem(key));
   }, [search, filterBy, filterValue]);
 
   return (
@@ -183,6 +200,7 @@ export default function DataTable() {
               Your Email
             </label>
             <button
+              title="Filter events"
               id="search-dropdown"
               onClick={() => setShowDropdown(!showDropdown)}
               className="flex h-full items-center justify-center gap-2 border border-l-gray-200 p-2.5 text-xs font-medium uppercase text-gray-600 hover:bg-black/5 focus:outline-none focus:ring-4 focus:ring-gray-300"
@@ -239,6 +257,7 @@ export default function DataTable() {
             <button
               onClick={handleExport}
               type="submit"
+              title="Export JSON"
               className="flex h-full items-center justify-center gap-2 rounded-r-lg border-t-2 border-transparent p-2.5 text-sm font-medium text-gray-600 hover:bg-black/5 focus:outline-none focus:ring-4 focus:ring-gray-300"
             >
               <svg
@@ -268,7 +287,7 @@ export default function DataTable() {
                 setFilterValue(e.target.value);
               }}
               type="text"
-              className="mt-2 w-full rounded-lg border border-gray-200 bg-transparent p-2 text-sm focus:outline-double focus:outline-2 focus:outline-gray-400 active:border-gray-400"
+              className="mt-2 w-full rounded-lg border border-gray-200 bg-transparent p-2 text-sm focus:outline-none focus:ring-4 focus:ring-gray-300"
               placeholder="Filter"
             />
             <p className="absolute right-4 top-[calc(50%-.25rem)] text-xs font-semibold text-gray-700">

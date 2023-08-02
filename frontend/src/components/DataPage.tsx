@@ -1,6 +1,7 @@
 import { Event } from '../vite-env';
 import LoadingRow from './LoadingRow';
 import TableRow from './TableRow';
+import { useEffect } from 'react';
 import useEvents from '../utils/useEvents';
 
 export default function DataPage({
@@ -11,6 +12,14 @@ export default function DataPage({
   queryParams: string;
 }) {
   const { events, error, isLoading } = useEvents(index, queryParams);
+
+  useEffect(() => {
+    if (events) console.log(events);
+    // loop over events and add to localstorage
+    events?.forEach((event: Event) => {
+      localStorage.setItem(`event_${event.id}`, JSON.stringify(event));
+    });
+  }, [events]);
 
   return (
     <>
