@@ -1,5 +1,17 @@
 # Instatus Task (Instalog)
 
+### Tech Stack
+* Frontend
+  * React JS (Vite)
+  * SWR
+  * Tailwind CSS
+  * TypeScript
+* Backend
+  * Prisma
+  * Express
+  * Postgres
+  * TypeScript
+
 ### Assumptions
 
 For the sake of simplicity, I assumed that:
